@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "redis": "redis-server ./redis.conf",
+    "debug": "DEBUG=express:* node ./bin/www",
     "start": "node ./bin/www"
   },
   "dependencies": {
