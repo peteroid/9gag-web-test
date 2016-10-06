@@ -2,8 +2,11 @@ var React = require('react')
 var Redux = require('redux')
 var Provider = require('react-redux').Provider
 var ReactDom = require('react-dom')
+var Thunk = require('redux-thunk').default
 
-var store = Redux.createStore(require('./reducers'))
+var store = Redux.createStore(
+  require('./reducers'),
+  Redux.applyMiddleware(Thunk))
 
 var PostListContainer = require('./containers/PostListContainer')
 

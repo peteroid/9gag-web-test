@@ -8,7 +8,8 @@ function PostList(props) {
         props.posts.map((post, index) => {
           return (
             <li key={index}>
-              {JSON.stringify(post)}
+              <p>{post.caption || JSON.stringify(post)}</p>
+              <img src={post.thumbnail_src} />
             </li>
           )
         })

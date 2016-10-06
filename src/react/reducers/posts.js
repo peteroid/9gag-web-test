@@ -2,7 +2,7 @@ var PostsActions = require('../actions/posts')
 
 var initialState = {
   offset: 0,
-  posts: [{a:1}]
+  posts: []
 };
 
 function postsReducer (state, action) {
@@ -17,6 +17,7 @@ function postsReducer (state, action) {
       })
     case PostsActions.ADD_POSTS:
       return Object.assign({}, state, {
+        offset: state.offset + action.posts.length,
         posts: state.posts.concat(action.posts)
       })
     default:
