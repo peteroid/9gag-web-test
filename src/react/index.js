@@ -1,13 +1,21 @@
 var React = require('react')
+var Redux = require('redux')
+var Provider = require('react-redux').Provider
 var ReactDom = require('react-dom')
 
-function App() {
+var store = Redux.createStore(require('./reducers'))
+
+function App(props) {
   return (
-    <h1>Hello to 9GAG</h1>
+    <div>
+      <h1 onClick={_ => {console.log(store.getState())}}>Hello to 9GAG !!!</h1>
+    </div>
   )
 }
 
 ReactDom.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('app')
 )

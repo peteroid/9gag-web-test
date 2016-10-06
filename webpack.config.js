@@ -6,13 +6,13 @@ var config = {
       {
         test : /\.js?/,
         exclude: /node_modules/,
-        loader : 'babel'
+        loader : 'babel-loader'
       }
     ]
   },
-  entry: './src/react/index.js',
+  entry: __dirname + '/src/react/index.js',
   output: {
-    path: './public/javascripts',
+    path: __dirname + '/public/javascripts',
     filename: 'app.js'
   }
 };
