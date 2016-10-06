@@ -2,7 +2,7 @@ var PostsActions = require('../actions/posts')
 
 var initialState = {
   offset: 0,
-  posts: []
+  posts: [{a:1}]
 };
 
 function postsReducer (state, action) {
