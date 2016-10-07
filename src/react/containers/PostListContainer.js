@@ -14,13 +14,16 @@ const mapDispatchToProps = (dispatch, props) => {
       
     },
 
-    fetchPost: (offset) => {
-      dispatch(PostsActions.fetchPosts(offset))
+    fetchPost: (offset, key) => {
+      dispatch(PostsActions.fetchPosts(offset, key))
     }
   }
 }
 
 var PostListContainer = React.createClass({
+  contextTypes: {
+    store: React.PropTypes.object.isRequired
+  },
   componentDidMount() {
     console.log('PostListContainer mount')
     window.addEventListener('scroll', this.onScrollHandler)
@@ -34,7 +37,11 @@ var PostListContainer = React.createClass({
     this._height = height
     console.log(height)
 
-    this.props.fetchPost(this.props.offset)
+    this.props.fetchPost(this.props.offset, this.props.sortKey)
+
+    // this.context.store.subscribe(() => {
+    //   console.log(this.props)
+    // })
   },
 
   componentWillUnmount() {
@@ -43,14 +50,14 @@ var PostListContainer = React.createClass({
 
   onScrollHandler() {
     var rect = this._d && this._d.getBoundingClientRect()
-    if (this.props.hasNext && rect && rect.bottom < this._height) {
-      this.props.fetchPost(this.props.offset)
+    if (this.props.hasNext && rect && !this.props.isFetching && (rect.bottom < this._height + 500)) {
+      this.props.fetchPost(this.props.offset, this.props.sortKey)
     }
   },
 
   render() {
     return (
-      <div ref={d => this._d = d}>
+      <div ref={d => this._d = d} className="container">
         <PostList
           {...this.props} />
       </div>

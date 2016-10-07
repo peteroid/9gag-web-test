@@ -9,11 +9,19 @@ var store = Redux.createStore(
   Redux.applyMiddleware(Thunk))
 
 var PostListContainer = require('./containers/PostListContainer')
+var ControllerContainer = require('./containers/ControllerContainer')
 
 function App(props) {
   return (
     <div>
-      <h1 onClick={_ => {console.log(store.getState())}}>Hello to 9GAG !!!</h1>
+      <nav className="header">
+        <img className="header-img"
+          src="//scontent-sit4-1.cdninstagram.com/t51.2885-19/s320x320/12558510_934902113224871_1348837979_a.jpg" />
+        <h1 className="header-content">
+          9Gag
+        </h1>
+      </nav>
+      <ControllerContainer />
       <PostListContainer />
     </div>
   )

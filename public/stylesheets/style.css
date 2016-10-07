@@ -1,0 +1,30 @@
+img {
+  /*max-width: 100px;*/
+}
+
+.post-list {
+  list-style: none;
+}
+
+.header {
+  min-height: 50px;
+  background-color: #EFEFEF;
+  text-align: center;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.header-img {
+  height: 70px;
+  margin-right: 15px;
+}
+
+.header-content {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+}
+
+.control-panel {
+  margin-bottom: 15px;
+}

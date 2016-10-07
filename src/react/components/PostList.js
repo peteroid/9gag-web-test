@@ -3,20 +3,20 @@ var PropTypes = React.PropTypes
 
 function PostList(props) {
   return (
-    <ul onClick={props.onClick}>
+    <ul onClick={props.onClick} className="post-list row">
       {
         props.posts.map((post, index) => {
           return (
-            <li key={index}>
+            <li key={index} className="post-list-item col-sm-4">
               <p>{post.caption}</p>
               <a target="_blank" href={'//www.instagram.com/p/' + post.code}>
-                <img src={post.thumbnail_src} />
+                <img src={post.thumbnail_src} className="img-responsive" />
               </a>
               <p>
                 {post.likes.count}<br />
                 {post.comments.count}<br />
               </p>
-              
+
 
             </li>
           )
