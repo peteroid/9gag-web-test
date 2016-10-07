@@ -38,10 +38,6 @@ var PostListContainer = React.createClass({
     console.log(height)
 
     this.props.fetchPost(this.props.offset, this.props.sortKey)
-
-    // this.context.store.subscribe(() => {
-    //   console.log(this.props)
-    // })
   },
 
   componentWillUnmount() {
