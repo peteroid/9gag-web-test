@@ -8,8 +8,16 @@ function PostList(props) {
         props.posts.map((post, index) => {
           return (
             <li key={index}>
-              <p>{post.caption || JSON.stringify(post)}</p>
-              <img src={post.thumbnail_src} />
+              <p>{post.caption}</p>
+              <a target="_blank" href={'//www.instagram.com/p/' + post.code}>
+                <img src={post.thumbnail_src} />
+              </a>
+              <p>
+                {post.likes.count}<br />
+                {post.comments.count}<br />
+              </p>
+              
+
             </li>
           )
         })

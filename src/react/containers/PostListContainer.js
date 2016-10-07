@@ -11,7 +11,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onClick: _ => {
-      dispatch(PostsActions.addPosts({b:2}))
+      
     },
 
     fetchPost: (offset) => {
@@ -43,7 +43,7 @@ var PostListContainer = React.createClass({
 
   onScrollHandler() {
     var rect = this._d && this._d.getBoundingClientRect()
-    if (rect && rect.bottom < this._height) {
+    if (this.props.hasNext && rect && rect.bottom < this._height) {
       this.props.fetchPost(this.props.offset)
     }
   },
