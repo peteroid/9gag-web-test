@@ -9,7 +9,13 @@ function PostList(props) {
           return (
             <li key={index} className="post-list-item col-sm-6 col-md-4 col-sm-12">
               <a target="_blank" href={'//www.instagram.com/p/' + post.code}>
-                <img src={post.thumbnail_src} className="img-responsive" />
+                {
+                  post.is_video && post.video_url ? (
+                    <video src={post.video_url} />
+                  ) : (
+                    <img src={post.thumbnail_src} className="img-responsive" />
+                  )
+                }
               </a>
               <p>{post.caption}</p>
               <p>

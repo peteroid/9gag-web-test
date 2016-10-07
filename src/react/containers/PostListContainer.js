@@ -5,7 +5,13 @@ var PostsActions = require('../actions/posts')
 var PostList = require('../components/PostList')
 
 const mapStateToProps = state => {
-  return state.postsState
+  return {
+    offset: state.postsState.offset,
+    hasNext: state.postsState.hasNext,
+    isFetching: state.postsState.isFetching,
+    sortKey: state.postsState.sortKey,
+    posts: state.postsState.postCodes.map(c => {return state.postsState.posts[c]})
+  }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -16,6 +22,10 @@ const mapDispatchToProps = (dispatch, props) => {
 
     fetchPost: (offset, key) => {
       dispatch(PostsActions.fetchPosts(offset, key))
+    },
+
+    getVideoUrl: (code) => {
+      dispatch(PostsActions.fetchVideoUrl(code))
     }
   }
 }
