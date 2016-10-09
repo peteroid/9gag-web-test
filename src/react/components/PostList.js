@@ -113,9 +113,9 @@ var Post = React.createClass({
   render() {
     return (
       <div className="post-link row">
-        <a target="_blank" href={'//www.instagram.com/p/' + this.props.code} className="post-img-wrapper col-sm-7">
+        <a target="_blank" href={'//www.instagram.com/p/' + this.props.code} className="post-img-wrapper col-sm-7 col-xs-12">
           {this.props.is_video && !this.state.isPlaying? (<span onClick={this.playVideo} className="post-video-play"><i className="fa fa-play-circle-o"></i></span>) : ('')}
-          <div style={{backgroundImage: 'url(' + (this.props.is_video? this.props.thumbnail_src : this.props.display_src) + ')'}} className="post-img v-container">
+          <div style={{backgroundImage: 'url(' + (this.state.isPlaying? '' : (this.props.is_video? this.props.thumbnail_src : this.props.display_src)) + ')'}} className="post-img v-container">
             {this.state.isPlaying? (
               <video src={this.props.video_url} className="post-video v-center" autoPlay ref={this.onVideoMount}/>
             ) : (

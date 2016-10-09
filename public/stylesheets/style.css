@@ -14,6 +14,7 @@
 
 .post-img-wrapper {
   position: relative;
+  margin-bottom: 15px;
 }
 
 .post-img {
@@ -55,7 +56,6 @@
 .post-content {
   display: inline-block;
   position: relative;
-  height: 275px;
 }
 
 .post-content > p {
@@ -105,6 +105,10 @@
 }
 
 @media (min-width: 768px) {
+  .post-content {
+    height: 275px;
+  }
+
   .post-content > p {
     position: absolute;
     top: 50%;
