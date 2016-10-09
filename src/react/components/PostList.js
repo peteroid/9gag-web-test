@@ -1,27 +1,125 @@
 var React = require('react')
 var PropTypes = React.PropTypes
 
+var Post = React.createClass({
+  initialState() {
+
+  },
+
+  getProcessedCaption(c) {
+    var captionbObj = {
+      caption: [],
+      raw: c.slice()
+    }
+    
+    while (captionbObj.raw.length > 0) {
+      var nextTag = captionbObj.raw.indexOf('#')
+      var nextMention = captionbObj.raw.indexOf('@')
+
+      if (nextTag > -1 && nextMention > -1) {
+        if (nextTag > nextMention) {
+          this.processElements(captionbObj, 'mention', nextMention)
+        } else {
+          this.processElements(captionbObj, 'tag', nextTag)
+        }
+      } else if (nextTag > -1) {
+        this.processElements(captionbObj, 'tag', nextTag)
+      } else if (nextMention > -1) {
+        this.processElements(captionbObj, 'mention', nextMention)
+      } else {
+        this.processElements(captionbObj, 'tag', nextTag)
+      }
+    }
+
+    return captionbObj
+  },
+
+  processElements(obj, key, index) {
+    if (index > 0) {
+      obj.caption.push({
+        type: 'text',
+        text: obj.raw.slice(0, index)
+      }, {
+        type: 'text',
+        text: ' '
+      })
+    }
+    obj.raw = obj.raw.slice(index + 1)
+
+    
+    var nextSpace = obj.raw.indexOf(' ')
+    var o = {}
+    if (nextSpace > -1) {
+      obj.caption.push({
+        type: key,
+        text: obj.raw.slice(0, nextSpace)
+      },  {
+        type: 'text',
+        text: ' '
+      })
+      obj.raw = obj.raw.slice(nextSpace + 1)
+    } else {
+      obj.caption.push({
+        type: key,
+        text: obj.raw
+      },  {
+        type: 'text',
+        text: ' '
+      })
+      obj.raw = ''
+    }
+    
+    return obj
+  },
+
+  render() {
+    return (
+      <div className="post-link row">
+        <a target="_blank" href={'//www.instagram.com/p/' + this.props.code} className="col-sm-7">
+          <div style={{backgroundImage: 'url(' + (this.props.is_video? this.props.thumbnail_src : this.props.display_src) + ')'}} className="post-img" />
+        </a>
+        <div className="post-content col-sm-5">
+          <p>{this.getProcessedCaption(this.props.caption).caption.map((o, i) => {
+              switch (o.type) {
+                case 'text':
+                  return <span key={i}>{o.text} </span>
+                case 'tag':
+                  return <a key={i} target="_blank" href={'//www.instagram.com/explore/tags/' + o.text}>#{o.text}</a>
+                case 'mention':
+                  return <a key={i} target="_blank" href={'//www.instagram.com/' + o.text}>@{o.text}</a>
+              }
+          })}<br/>{this.props.likes.count}</p>
+
+        </div>
+      </div>
+    )
+  }
+})
+
+//{/*<video src={post.video_url} className="img-responsive" controls/>*/}
 function PostList(props) {
   return (
     <ul onClick={props.onClick} className="post-list row">
       {
         props.posts.map((post, index) => {
           return (
-            <li key={index} className="post-list-item col-sm-6 col-md-4 col-sm-12">
-              <a target="_blank" href={'//www.instagram.com/p/' + post.code}>
-                {
-                  post.is_video && post.video_url ? (
-                    <video src={post.video_url} />
-                  ) : (
+            <li key={index} className="post-list-item col-sm-6 col-sm-12">
+              <Post {...post} />
+              {/*
+                post.is_video && post.video_url ? (
                     <img src={post.thumbnail_src} className="img-responsive" />
-                  )
-                }
-              </a>
-              <p>{post.caption}</p>
+                  
+                ) : (
+                  <a target="_blank" href={'//www.instagram.com/p/' + post.code}>
+                    <img src={post.display_src} className="img-responsive" />
+                  </a>
+                )
+              */}
+              {/*<p>{post.caption}</p>
               <p>
                 {post.likes.count}<br />
                 {post.comments.count}<br />
-              </p>
+              </p>*/}
             </li>
           )
         })
