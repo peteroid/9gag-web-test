@@ -12,11 +12,44 @@
   position: relative;
 }
 
+.post-img-wrapper {
+  position: relative;
+}
+
 .post-img {
   height: 275px;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.v-container {
+  white-space: nowrap;
+}
+
+.v-container:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.v-container .v-center {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.post-video {
+  width: 100%;
+}
+
+.post-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
+  color: #FDFDFE;
 }
 
 .post-content {
