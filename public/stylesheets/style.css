@@ -26,11 +26,7 @@
 }
 
 .post-content > p {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  transform: translate(-50%, -50%);
+  padding: 0 45px;
 }
 
 .post-content a {
@@ -73,4 +69,15 @@
 .control-panel .btn.btn-success {
   background-color: #1E1D1F;
   border-color: #1E1D1F;
+}
+
+@media (min-width: 768px) {
+  .post-content > p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+  }
 }
