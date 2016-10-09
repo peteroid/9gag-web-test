@@ -3,8 +3,10 @@ var PropTypes = React.PropTypes
 var moment = require('moment')
 
 var Post = React.createClass({
-  initialState() {
-
+  getInitialState() {
+    return {
+      isPlaying: false
+    }
   },
 
   getProcessedCaption(c) {
@@ -91,11 +93,35 @@ var Post = React.createClass({
     }
   },
 
+  playVideo(e) {
+    e.preventDefault()
+    this.setState({
+      isPlaying: true
+    })
+  },
+
+  onVideoMount(v) {
+    if (v) {
+      v.addEventListener('ended', function (e) {
+        this.setState({
+          isPlaying: false
+        })
+      }.bind(this), true)
+    }
+  },
+
   render() {
     return (
       <div className="post-link row">
-        <a target="_blank" href={'//www.instagram.com/p/' + this.props.code} className="col-sm-7">
-          <div style={{backgroundImage: 'url(' + (this.props.is_video? this.props.thumbnail_src : this.props.display_src) + ')'}} className="post-img" />
+        <a target="_blank" href={'//www.instagram.com/p/' + this.props.code} className="post-img-wrapper col-sm-7">
+          {this.props.is_video && !this.state.isPlaying? (<span onClick={this.playVideo} className="post-video-play"><i className="fa fa-play-circle-o"></i></span>) : ('')}
+          <div style={{backgroundImage: 'url(' + (this.props.is_video? this.props.thumbnail_src : this.props.display_src) + ')'}} className="post-img v-container">
+            {this.state.isPlaying? (
+              <video src={this.props.video_url} className="post-video v-center" autoPlay ref={this.onVideoMount}/>
+            ) : (
+              ''
+            )}
+          </div>
         </a>
         <div className="post-content col-sm-5">
           <p>
@@ -129,7 +155,6 @@ var Post = React.createClass({
   }
 })
 
-//{/*<video src={post.video_url} className="img-responsive" controls/>*/}
 function PostList(props) {
   return (
     <ul onClick={props.onClick} className="post-list row">
