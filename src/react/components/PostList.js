@@ -102,11 +102,14 @@ var Post = React.createClass({
 
   onVideoMount(v) {
     if (v) {
+      window._v = v
       v.addEventListener('ended', function (e) {
         this.setState({
           isPlaying: false
         })
       }.bind(this), true)
+
+      v.play()
     }
   },
 
@@ -117,7 +120,7 @@ var Post = React.createClass({
           {this.props.is_video && !this.state.isPlaying? (<span onClick={this.playVideo} className="post-video-play"><i className="fa fa-play-circle-o"></i></span>) : ('')}
           <div style={{backgroundImage: 'url(' + (this.state.isPlaying? '' : (this.props.is_video? this.props.thumbnail_src : this.props.display_src)) + ')'}} className="post-img v-container">
             {this.state.isPlaying? (
-              <video src={this.props.video_url} className="post-video v-center" autoPlay ref={this.onVideoMount}/>
+              <video src={this.props.video_url} className="post-video v-center" ref={this.onVideoMount}/>
             ) : (
               ''
             )}
