@@ -1,9 +1,50 @@
-img {
-  /*max-width: 100px;*/
+.btn:active:focus, .btn:focus {
+  outline: none;
 }
 
 .post-list {
   list-style: none;
+  padding: 0;
+}
+
+.post-list-item {
+  margin: 15px 0;
+  position: relative;
+}
+
+.post-img {
+  height: 275px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.post-content {
+  display: inline-block;
+  position: relative;
+  height: 275px;
+}
+
+.post-content > p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.post-content a {
+  color: black;
+}
+
+.post-content .post-attr {
+  display: inline-block;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.post-content .post-attr .post-attr-value {
+  margin-left: 5px;
 }
 
 .header {
@@ -27,4 +68,9 @@ img {
 
 .control-panel {
   margin-bottom: 15px;
+}
+
+.control-panel .btn.btn-success {
+  background-color: #1E1D1F;
+  border-color: #1E1D1F;
 }

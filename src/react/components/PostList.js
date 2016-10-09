@@ -1,5 +1,6 @@
 var React = require('react')
 var PropTypes = React.PropTypes
+var moment = require('moment')
 
 var Post = React.createClass({
   initialState() {
@@ -72,6 +73,24 @@ var Post = React.createClass({
     return obj
   },
 
+  numberAbbrs: [
+    'k', 'm', 'b'
+  ],
+
+  getFormatNumber(n) {
+    var i = parseInt(n)
+    if (i < 1000) {
+      return String(i)
+    } else {
+      var count = 0
+      while (i >= 1000000) {
+        count++
+        i /= 1000
+      }
+      return String(Math.round(i / 100) / 10) + this.numberAbbrs[count]
+    }
+  },
+
   render() {
     return (
       <div className="post-link row">
@@ -79,7 +98,8 @@ var Post = React.createClass({
           <div style={{backgroundImage: 'url(' + (this.props.is_video? this.props.thumbnail_src : this.props.display_src) + ')'}} className="post-img" />
         </a>
         <div className="post-content col-sm-5">
-          <p>{this.getProcessedCaption(this.props.caption).caption.map((o, i) => {
+          <p>
+            {this.getProcessedCaption(this.props.caption).caption.map((o, i) => {
               switch (o.type) {
                 case 'text':
                   return <span key={i}>{o.text} </span>
@@ -88,7 +108,20 @@ var Post = React.createClass({
                 case 'mention':
                   return <a key={i} target="_blank" href={'//www.instagram.com/' + o.text}>@{o.text}</a>
               }
-          })}<br/>{this.props.likes.count}</p>
+            })}
+            <span className="post-attr">
+              <i className="fa fa-heart"></i>
+              <span className="post-attr-value">{this.getFormatNumber(this.props.likes.count)}</span>
+            </span>
+            <span className="post-attr">
+              <i className="fa fa-comment"></i>
+              <span className="post-attr-value">{this.getFormatNumber(this.props.comments.count)}</span>
+            </span>
+            <span className="post-attr">
+              <i className="fa fa-clock-o"></i>
+              <span className="post-attr-value">{moment(parseInt(this.props.date + '000')).fromNow(true)}</span>
+            </span>
+          </p>
 
         </div>
       </div>
@@ -103,23 +136,8 @@ function PostList(props) {
       {
         props.posts.map((post, index) => {
           return (
-            <li key={index} className="post-list-item col-sm-6 col-sm-12">
+            <li key={index} className="post-list-item col-md-6 col-xs-12">
               <Post {...post} />
-              {/*
-                post.is_video && post.video_url ? (
-                    <img src={post.thumbnail_src} className="img-responsive" />
-                  
-                ) : (
-                  <a target="_blank" href={'//www.instagram.com/p/' + post.code}>
-                    <img src={post.display_src} className="img-responsive" />
-                  </a>
-                )
-              */}
-              {/*<p>{post.caption}</p>
-              <p>
-                {post.likes.count}<br />
-                {post.comments.count}<br />
-              </p>*/}
             </li>
           )
         })
