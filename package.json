@@ -6,7 +6,8 @@
     "redis": "redis-server ./redis.conf",
     "debug": "DEBUG=express:* node ./bin/www",
     "dev": "DEBUG=express:* ./node_modules/.bin/nodemon ./bin/www",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "webpack": "./node_modules/.bin/webpack -w"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
